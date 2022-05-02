@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.carpoolbuddy.Model.User.Alumni;
 import com.example.carpoolbuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,14 +45,34 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void signIn (View v){
-        System.out.println("LOG IN");
-
         String emailString = emailfield.getText().toString();
         String passwordString = passwordfield.getText().toString();
+        mAuth.signInWithEmailAndPassword(emailString, passwordString)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            Log.d("LOG IN", "successfully loged in the user");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        }
+                        else {
+                            Log.d("LOG IN", "Log in:failure", task.getException());
+                            Toast.makeText(AuthActivity.this,"Log in failed", Toast.LENGTH_LONG).show();
+                            updateUI(null);
+                        }
+                    }
+                });
 
-        System.out.println(String.format("EMAIL AND PASSWORD:", emailString, passwordString));
 
-        FirebaseUser mUser = mAuth.getCurrentUser();
+//        System.out.println("LOG IN");
+//
+//        String emailString = emailfield.getText().toString();
+//        String passwordString = passwordfield.getText().toString();
+//
+//        System.out.println(String.format("EMAIL AND PASSWORD:", emailString, passwordString));
+//
+//        FirebaseUser mUser = mAuth.getCurrentUser();
 
 
     }

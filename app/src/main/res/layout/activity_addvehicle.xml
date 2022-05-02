@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".Controler.AddVehicleActivity">
 
+    <Spinner
+        android:id="@+id/SPaddVehicle"
+        android:layout_width="217dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="168dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/LOaddVehicle"
+        android:layout_width="409dp"
+        android:layout_height="275dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SPaddVehicle"></LinearLayout>
+
+    <Button
+        android:id="@+id/TBaddVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="209dp"
+        android:onClick="addVehicle"
+        android:text="Add Vehicle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LOaddVehicle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

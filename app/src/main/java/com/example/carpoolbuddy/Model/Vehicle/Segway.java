@@ -6,7 +6,7 @@ public class Segway extends Vehicle {
     private int range;
     private int weightCopacity;
 
-    public Segway(){
+    public Segway(String uid, String ownerString, String modelString, String priceString, int range, String segweightCapacity){
         super();
     }
 

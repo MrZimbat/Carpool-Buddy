@@ -8,8 +8,8 @@
 
     <Spinner
         android:id="@+id/selectTypeSpinnerspinner"
-        android:layout_width="111dp"
-        android:layout_height="23dp"
+        android:layout_width="171dp"
+        android:layout_height="24dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="1dp"
@@ -29,4 +29,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectTypeSpinnerspinner"></LinearLayout>
+
+    <Button
+        android:id="@+id/BTSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="265dp"
+        android:onClick="signUp"
+        android:text="Sign up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="434dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
