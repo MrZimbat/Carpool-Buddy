@@ -107,7 +107,7 @@ public class AuthActivity extends AppCompatActivity {
 
     public void updateUI(FirebaseUser currentuUser){
         if (currentuUser != null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, AddVehicleActivity.class);
             startActivity(intent);
         }
     }
