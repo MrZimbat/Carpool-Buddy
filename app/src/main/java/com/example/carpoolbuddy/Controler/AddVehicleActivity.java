@@ -159,15 +159,15 @@ public class AddVehicleActivity extends AppCompatActivity {
         }
         if(selectedRole.equals("Bicycle")){
             String bitype = bicycleTypeField.getText().toString();
-            String biweight = weightField.getText().toString();
-            String biweightCapacity = weightCapacityField.getText().toString();
+            int biweight = Integer.parseInt(rangeField.getText().toString());
+            int biweightCapacity = Integer.parseInt(rangeField.getText().toString());
             Bicycle newBicycle = new Bicycle(uid, ownerString, modelString, priceString, bitype, biweight, biweightCapacity);
             uidGenerator++;
             firestore.collection("Vehicles").document(uid).set(newBicycle);
         }
         if(selectedRole.equals("Helicopter")){
-            String maxSpeed = maxAirSpeedField.getText().toString();
-            String maxAlt = maxAltitudeField.getText().toString();
+            int maxSpeed = Integer.parseInt(rangeField.getText().toString());
+            int maxAlt = Integer.parseInt(rangeField.getText().toString());
             HeliCopter newHelicopter = new HeliCopter(uid, ownerString, modelString, priceString, maxAlt, maxSpeed);
             uidGenerator++;
             firestore.collection("Vehicles").document(uid).set(newHelicopter);
@@ -175,7 +175,7 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         if (selectedRole.equals("Segway")){
             int range = Integer.parseInt(rangeField.getText().toString());
-            String segweightCapacity = weightCapacityField.getText().toString();
+            int segweightCapacity = Integer.parseInt(rangeField.getText().toString());
             Segway newSegway = new Segway(uid, ownerString, modelString, priceString, range, segweightCapacity);
             uidGenerator++;
             firestore.collection("Vehicles").document(uid).set(newSegway);

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Car extends Vehicle {
     private int range;
 
-    public Car(String s, String uid, String ownerString, String modelString, int range, String biweightCapacity) {
+    public Car(String s, String uid, String ownerString, String modelString, int range) {
         super();
     }
 
-    public Car(String owner, String modal, String vehicleID, String vehicleType, double basePrice) {
+    public Car(String owner, String modal, int capacity, String vehicleID, ArrayList ridersUIDS, boolean open, String vehicleType, double basePrice) {
         super(owner, modal, capacity, vehicleID, ridersUIDS, open, vehicleType, basePrice);
         this.range = range;
     }

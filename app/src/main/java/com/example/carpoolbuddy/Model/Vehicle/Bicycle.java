@@ -7,7 +7,7 @@ public class Bicycle extends Vehicle {
     private int weight;
     private int weightCapacity;
 
-    public Bicycle(String s, String uid, String ownerString, String modelString, String bitype, String biweight, String biweightCapacity){
+    public Bicycle(String s, String uid, String ownerString, String modelString, String bitype, int biweight, int biweightCapacity){
         super();
     }
 
