@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddVehicleActivity extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class AddVehicleActivity extends AppCompatActivity {
     private EditText ownerField;
 
     private EditText rangeField;
+    private EditText capacityField;
     private EditText bicycleTypeField;
     private EditText weightField;
     private EditText weightCapacityField;
@@ -51,11 +53,11 @@ public class AddVehicleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_addvehicle);
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         layout = findViewById(R.id.LOaddVehicle);
-        userRoleSpinner = findViewById(R.id.SPaddVehicle);
+        userRoleSpinner = (Spinner) findViewById(R.id.SPaddVehicle);
         setupSpinner();
         uid = "" + uidGenerator;
         uidGenerator++;
@@ -91,7 +93,10 @@ public class AddVehicleActivity extends AppCompatActivity {
         if(selectedRole.equals("Car")) {
             rangeField = new EditText(this);
             rangeField.setHint("Range");
+            capacityField = new EditText(this);
+            capacityField.setHint("Copacity");
             layout.addView(rangeField);
+            layout.addView(capacityField);
         }
 
         if(selectedRole.equals("Bicycle")){
@@ -138,10 +143,10 @@ public class AddVehicleActivity extends AppCompatActivity {
         ownerField.setHint("owner");
         layout.addView(ownerField);
         modelField = new EditText(this);
-        modelField.setHint("Email");
+        modelField.setHint("model");
         layout.addView(modelField);
         priceField = new EditText(this);
-        priceField.setHint("Password");
+        priceField.setHint("price");
         layout.addView(priceField);
     }
 
@@ -149,43 +154,46 @@ public class AddVehicleActivity extends AppCompatActivity {
     public void addVehicle(View v) {
         String ownerString = ownerField.getText().toString();
         String modelString = modelField.getText().toString();
-        String priceString = priceField.getText().toString();
+        int priceString = Integer.parseInt(priceField.getText().toString());
+
+        DocumentReference newRideRef = firestore.collection(Constants.VEHICLE_CONSTANT).document();
+        String vehicleId = newRideRef.getId();
 
         if(selectedRole.equals("Car")) {
             int range = Integer.parseInt(rangeField.getText().toString());
-            Car newCar = new Car(uid, ownerString, modelString, priceString, range);
-            uidGenerator++;
-            firestore.collection("Vehicles").document(uid).set(newCar);
+            int capacity = Integer.parseInt(capacityField.getText().toString());
+            Car newCar = new Car(ownerString, modelString, capacity, vehicleId, null, true, "car", priceString, range);
+            System.out.println(newCar);
+            firestore.collection("Vehicles").document(vehicleId).set(newCar);
+
         }
         if(selectedRole.equals("Bicycle")){
             String bitype = bicycleTypeField.getText().toString();
-            int biweight = Integer.parseInt(rangeField.getText().toString());
-            int biweightCapacity = Integer.parseInt(rangeField.getText().toString());
-            Bicycle newBicycle = new Bicycle(uid, ownerString, modelString, priceString, bitype, biweight, biweightCapacity);
-            uidGenerator++;
-            firestore.collection("Vehicles").document(uid).set(newBicycle);
+            int biweight = Integer.parseInt(weightField.getText().toString());
+            int biweightCapacity = Integer.parseInt(weightCapacityField.getText().toString());
+            Bicycle newBicycle = new Bicycle(ownerString, modelString, 0, vehicleId, null, true, "Bicycle", priceString, bitype, biweight, biweightCapacity);
+            firestore.collection("Vehicles").document(vehicleId).set(newBicycle);
+
         }
         if(selectedRole.equals("Helicopter")){
-            int maxSpeed = Integer.parseInt(rangeField.getText().toString());
-            int maxAlt = Integer.parseInt(rangeField.getText().toString());
-            HeliCopter newHelicopter = new HeliCopter(uid, ownerString, modelString, priceString, maxAlt, maxSpeed);
-            uidGenerator++;
-            firestore.collection("Vehicles").document(uid).set(newHelicopter);
+            int maxSpeed = Integer.parseInt(maxAirSpeedField.getText().toString());
+            int maxAlt = Integer.parseInt(maxAltitudeField.getText().toString());
+            HeliCopter newHelicopter = new HeliCopter(ownerString, modelString, 5, vehicleId, null, true, "helicopter", priceString, maxAlt, maxSpeed);
+            firestore.collection("Vehicles").document(vehicleId).set(newHelicopter);
+
         }
 
         if (selectedRole.equals("Segway")){
             int range = Integer.parseInt(rangeField.getText().toString());
-            int segweightCapacity = Integer.parseInt(rangeField.getText().toString());
-            Segway newSegway = new Segway(uid, ownerString, modelString, priceString, range, segweightCapacity);
-            uidGenerator++;
-            firestore.collection("Vehicles").document(uid).set(newSegway);
+            int segweightCapacity = Integer.parseInt(weightCapacityField.getText().toString());
+            Segway newSegway = new Segway(ownerString, modelString, 1, vehicleId, null, true, "segway", priceString, range, segweightCapacity);
+            firestore.collection("Vehicles").document(vehicleId).set(newSegway);
+
         }
     }
 
-    public void updateUI(FirebaseUser currentUser) {
-        if (currentUser != null) {
-            Intent intent = new Intent(this, SignUpActivity.class);
+    public void goBack(View V) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        }
     }
 }

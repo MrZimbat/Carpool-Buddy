@@ -6,9 +6,6 @@ public class HeliCopter extends Vehicle {
     private int maxAltitude;
     private int maxAirSpeed;
 
-    public HeliCopter(String s, String uid, String ownerString, String modelString, int maxAlt, int maxSpeed){
-        super();
-    }
 
     public HeliCopter(String owner, String modal, int capacity, String vehicleID, ArrayList ridersUIDS, boolean open, String vehicleType, double basePrice, int maxAltitude, int maxAirSpeed) {
         super(owner, modal, capacity, vehicleID, ridersUIDS, open, vehicleType, basePrice);

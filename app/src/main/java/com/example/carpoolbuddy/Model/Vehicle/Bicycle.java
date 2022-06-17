@@ -7,9 +7,7 @@ public class Bicycle extends Vehicle {
     private int weight;
     private int weightCapacity;
 
-    public Bicycle(String s, String uid, String ownerString, String modelString, String bitype, int biweight, int biweightCapacity){
-        super();
-    }
+
 
     public Bicycle(String owner, String modal, int capacity, String vehicleID, ArrayList ridersUIDS, boolean open, String vehicleType, double basePrice, String bycicleType, int weight, int weightCapacity) {
         super(owner, modal, capacity, vehicleID, ridersUIDS, open, vehicleType, basePrice);
@@ -17,6 +15,7 @@ public class Bicycle extends Vehicle {
         this.weight = weight;
         this.weightCapacity = weightCapacity;
     }
+
 
     public String getBycicleType() {
         return bycicleType;

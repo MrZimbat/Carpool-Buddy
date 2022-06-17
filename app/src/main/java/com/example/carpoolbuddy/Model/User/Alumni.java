@@ -1,26 +1,20 @@
 package com.example.carpoolbuddy.Model.User;
 
-import com.example.carpoolbuddy.Model.User.User;
-
 import java.util.ArrayList;
 
 public class Alumni extends User {
-    private String graduateYear;
+    private int graduateYear;
 
-    public Alumni(String uid, String nameString, String emailString, int gradYearInt){
-        super();
-    }
-
-    public Alumni(String uid, String name, String email, String userType, double priceMultiplier, ArrayList ownedVehicle, String graduateYear) {
+    public Alumni(String uid, String name, String email, String userType, double priceMultiplier, ArrayList ownedVehicle, int graduateYear) {
         super(uid, name, email, userType, priceMultiplier, ownedVehicle);
         this.graduateYear = graduateYear;
     }
 
-    public String getGraduateYear() {
+    public int getGraduateYear() {
         return graduateYear;
     }
 
-    public void setGraduateYear(String graduateYear) {
+    public void setGraduateYear(int graduateYear) {
         this.graduateYear = graduateYear;
     }
 

@@ -1,5 +1,6 @@
 package com.example.carpoolbuddy.Controler;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,5 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public void goAddVehicle(View V) {
         Intent intent = new Intent(this, AddVehicleActivity.class);
         startActivity(intent);
+        }
+
+        public void goVehicleInfo(View V){
+            Intent intent = new Intent(this, com.example.carpoolbuddy.Controler.VehicleInfoActivity.class);
+            startActivity(intent);
         }
     }

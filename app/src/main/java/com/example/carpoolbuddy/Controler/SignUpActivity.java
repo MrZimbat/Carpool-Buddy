@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.carpoolbuddy.Controler.UserProfileActivity;
 import com.example.carpoolbuddy.Model.User.Alumni;
+import com.example.carpoolbuddy.Model.User.Parent;
+import com.example.carpoolbuddy.Model.User.Student;
+import com.example.carpoolbuddy.Model.User.Teacher;
 import com.example.carpoolbuddy.Model.User.User;
 import com.example.carpoolbuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -85,6 +89,12 @@ public class SignUpActivity extends AppCompatActivity {
             gradYearField.setHint("Graduation year");
             layout.addView(gradYearField);
         }
+
+        if(selectedRole.equals("Student")) {
+            gradYearField = new EditText(this);
+            gradYearField.setHint("Graduation year");
+            layout.addView(gradYearField);
+        }
     }
 
     public void commonFields() {
@@ -105,6 +115,10 @@ public class SignUpActivity extends AppCompatActivity {
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
         String passwordString = passwordField.getText().toString();
+
+        DocumentReference newRideRef = firestore.collection(Constants.VEHICLE_CONSTANT).document();
+        String UserId = newRideRef.getId();
+
         mAuth.createUserWithEmailAndPassword(emailString, passwordString)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -123,9 +137,25 @@ public class SignUpActivity extends AppCompatActivity {
                 });
         if(selectedRole.equals("Alumni")) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            Alumni newUser = new Alumni(uid, nameString, emailString, gradYearInt);
+            Alumni newUser = new Alumni(UserId, nameString, emailString, "Alumni", 0, null, gradYearInt);
             uidGenerator++;
-            firestore.collection("people").document(uid).set(newUser);
+            firestore.collection("User").document(UserId).set(newUser);
+        }
+        if(selectedRole.equals("Parent")) {
+            Parent newUser = new Parent(UserId, nameString, emailString, "Parent", 0, null, null);
+            uidGenerator++;
+            firestore.collection("User").document(UserId).set(newUser);
+        }
+        if(selectedRole.equals("Student")){
+            int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
+            Student newUser = new Student(UserId, nameString, emailString, "Student", 0, null, gradYearInt, null);
+            uidGenerator++;
+            firestore.collection("User").document(UserId).set(newUser);
+        }
+        if(selectedRole.equals("Teacher")) {
+            Teacher newUser = new Teacher(UserId, nameString, emailString, "Parent", 0, null, null);
+            uidGenerator++;
+            firestore.collection("User").document(UserId).set(newUser);
         }
     }
 

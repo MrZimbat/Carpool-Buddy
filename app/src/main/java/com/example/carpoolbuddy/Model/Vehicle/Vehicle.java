@@ -1,9 +1,12 @@
 package com.example.carpoolbuddy.Model.Vehicle;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Vehicle implements Serializable {
+public class Vehicle implements Serializable, Parcelable {
     private String owner;
     private String modal;
     private int capacity;
@@ -13,8 +16,15 @@ public class Vehicle implements Serializable {
     private String vehicleType;
     private double basePrice;
 
-    public Vehicle() {
-
+    public Vehicle(){
+        this.owner = " ";
+        this.modal = " ";
+        this.capacity = 0;
+        this.vehicleID = " ";
+        this.ridersUIDS = new ArrayList();
+        this.open = false;
+        this.vehicleType = " ";
+        this.basePrice = 0;
     }
 
     public Vehicle(String owner, String modal, int capacity, String vehicleID, ArrayList ridersUIDS, boolean open, String vehicleType, double basePrice) {
@@ -27,6 +37,34 @@ public class Vehicle implements Serializable {
         this.vehicleType = vehicleType;
         this.basePrice = basePrice;
     }
+
+    public Vehicle(String uid, String ownerString, String modelString, int priceString, String bitype, int biweight, int biweightCapacity) {
+
+    }
+
+    protected Vehicle(Parcel in) {
+        owner = in.readString();
+        modal = in.readString();
+        capacity = in.readInt();
+        vehicleID = in.readString();
+        open = in.readByte() != 0;
+        vehicleType = in.readString();
+        basePrice = in.readDouble();
+    }
+
+    public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+        @Override
+        public Vehicle createFromParcel(Parcel in) {
+            return new Vehicle(in);
+        }
+
+        @Override
+        public Vehicle[] newArray(int size) {
+            return new Vehicle[size];
+        }
+    };
+
+    public void addRidersUID(String rider){this.ridersUIDS.add(rider);}
 
     public String getOwner() {
         return owner;
@@ -104,5 +142,21 @@ public class Vehicle implements Serializable {
                 ", vehicleType='" + vehicleType + '\'' +
                 ", basePrice=" + basePrice +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(owner);
+        dest.writeString(modal);
+        dest.writeInt(capacity);
+        dest.writeString(vehicleID);
+        dest.writeByte((byte) (open ? 1 : 0));
+        dest.writeString(vehicleType);
+        dest.writeDouble(basePrice);
     }
 }

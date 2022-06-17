@@ -6,9 +6,7 @@ public class Segway extends Vehicle {
     private int range;
     private int weightCopacity;
 
-    public Segway(String uid, String ownerString, String modelString, String priceString, int range, int segweightCapacity){
-        super();
-    }
+
 
     public Segway(String owner, String modal, int capacity, String vehicleID, ArrayList ridersUIDS, boolean open, String vehicleType, double basePrice, int range, int weightCopacity) {
         super(owner, modal, capacity, vehicleID, ridersUIDS, open, vehicleType, basePrice);
